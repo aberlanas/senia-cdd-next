@@ -4,12 +4,6 @@ senia-cdd (2021.04.28) hirsute; urgency=high
 
  -- tic La Senia <tic@ieslasenia.org>  Fri, 28 May 2021 06:25:51 +0200
 
-senia-cdd (2021.04.28) hirsute; urgency=high
-
-  * Added kdenlive
-
- -- tic La Senia <tic@ieslasenia.org>  Sun, 18 Apr 2021 07:00:47 +0200
-
 senia-cdd (2021.02.12) focal; urgency=high
 
   * LibreOffice metapackage added as dependence 

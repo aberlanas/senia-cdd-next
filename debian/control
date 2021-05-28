@@ -39,7 +39,7 @@ Description: Simple Virtual TIC Desktop App
 
 Package: senia-directory
 Architecture: all
-Depends: ${misc:Depends}, bsdutils
+Depends: ${misc:Depends}, bsdutils ( >> 1:2.36.1-6)
 Description: SSO and Mounting Infraestructure
  Simple integration, mount points and scripts
  for Senia Single-Sign-On mechanism.
@@ -194,7 +194,7 @@ Description: Senia shutdown plans
 Package: senia-sacred-place
 Architecture: all
 Depends: ${misc:Depends}
-Description: A Senia Sacred (and secure) place
+Description: Senia Sacred (and secure) place
  This package provides mechanisms to avoid
  some Senia configurations in several machines 
  and Systems.
@@ -202,5 +202,5 @@ Description: A Senia Sacred (and secure) place
 Package: senia-itaca-installer
 Architecture: all
 Depends: ${misc:Depends}
-Description: A Cutre Solution for Flash
+Description: Cutre Solution for Flash
  Installer for PaleMoon and Flash Settings
