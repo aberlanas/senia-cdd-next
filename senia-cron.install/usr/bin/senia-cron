@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# This script is licensed under GPL v3 or higher
+
+# Path to CRONTABS
+CRONTAB_PATH="/usr/share/senia-cron"
+
+sanity_checks(){
+	HOSTNAME=$(hostname)
+	if [ $HOSTNAME = "conserjeria" ]; then
+		echo " * [ Senia Cron ] :  Disabled for conserjeria "
+		exit 1
+	fi
+}
+
+
+reset(){
+
+	echo " * [ Senia Cron ] Reset Crontab for USER : $USER]"
+	crontab -r
+}
+
+sirena_conserjeria(){
+	
+	echo " * [ Senia Cron ] Installing Sirenas "
+	crontab ${CRONTAB_PATH}/conserjeria_sirena.txt
+}
+
+shutdown_15_21(){
+
+	echo " * [ Senia Cron ] Installing aulas shutdown: 15:05 21:00 "
+	crontab ${CRONTAB_PATH}/crontab_shutdown_15_21.txt
+}
+
+shutdown_23(){
+	
+	echo " * [ Senia Cron ] Installing aulas shutdown: 23:00 "
+	crontab  ${CRONTAB_PATH}/crontab_shutdown_23_00.txt	
+}
+
+sanity_checks
+
+case "$1" in
+        reset)
+            	reset
+            ;;
+        shutdown_15_21)
+		    shutdown_15_21
+            ;;
+	shutdown_23)
+		    shutdown_23
+		    ;;
+        *)
+            echo "Usage: $0 {reset|shutdown_15_21|shutdown_23}"
+            exit 1
+            ;;
+esac
+
+
+
+exit 0

@@ -1,0 +1,37 @@
+#!/bin/sh
+
+
+set -e
+
+
+case $1 in
+        configure)
+                #Senia repositories
+		rc=0
+		echo " * [ Senia Repositories : Focal - 20.04 ]"
+		test -f /etc/apt/sources.list.d/ticsenia-ubuntu-ppa-focal.list	|| rc=1
+		
+		if [ $rc -eq 1 ]; then
+			echo " * [ Senia Repositories : Adding new PPA for TIC Senia ] "
+			add-apt-repository -y ppa:ticsenia/ppa
+		else 
+			echo " * [ Senia Repositories : All Ok ]"
+		fi
+
+		senia-set-dns
+
+        ;;
+
+        abort-upgrade|abort-remove|abort-deconfigure)
+                echo "postinst called with argument \`$1'" >&2
+                exit 1
+        ;;
+
+        *)
+                echo "postinst called with unknown argument \`$1'" >&2
+                exit 1
+        ;;
+esac
+#DEBHELPER#
+
+exit 0

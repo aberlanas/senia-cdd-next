@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This script is licensed under GPL v3
+# or higher.
+
+DEFAULTRC=0
+
+SENIA_USERS="tic profe alumno"
+
+if [ ! -z "$1" ]; then
+    if [ "$1" = "--force" ]; then
+	DEFAULTRC=1
+	shift
+    fi    
+fi
+
+for USERAUX in ${SENIA_USERS}; do 
+
+	echo  " * [ Senia Default Users ] : Adding User [ ${USERAUX} ] "
+	echo  "  --> Testing if ${USERAUX} exists"
+
+	rc=$DEFAULTRC
+	cat /etc/passwd | grep -q ${USERAUX}|| rc=1
+
+	if [ $rc -eq 1 ]; then
+	   echo "  --> The user : ${USERAUX} not exists : creating..."
+
+	   adduser --quiet --disabled-password --shell /bin/bash --home /home/${USERAUX} --gecos ${USERAUX}  ${USERAUX}
+	   echo "${USERAUX}:${USERAUX}" | chpasswd
+	   if [ ${USERAUX} == "tic" ]; then
+		   adduser ${USERAUX} adm
+		   adduser ${USERAUX} sudo
+	   fi
+        else
+	   echo "  --> The user is already system...nothing to do"
+	fi
+
+done
+
+
+exit 0

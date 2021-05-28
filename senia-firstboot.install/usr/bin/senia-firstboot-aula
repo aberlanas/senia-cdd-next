@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Some documentations remains here.
+# TODO
+
+
+# SANITY CHECKS
+#
+
+# Permissions
+
+# Some values
+DEFAULTMODE=""
+
+if [ $(id -u) -ne 0 ]; then
+	echo " [ ERROR ]: You need execution privileges to run this program"
+	echo " [ YOU SHALL NOT PASS! ]"
+	echo " Please run : "
+	echo " sudo $(basename $0)"
+	exit 1
+fi
+
+# Test arguments
+if [ $# -ne 2 ] ; then
+	echo " [ USAGE ] : $(basename $0) [aula1|aula2|aula3|aula4] NUM_PC"
+	echo " [ example ] : $(basename $0) aula2 1"
+	exit 1
+fi
+
+echo " * [ Firstboot of La Senia ] "
+
+AULA=$1
+NUMAULA=$2
+
+case $AULA in
+	aula1)
+		echo " * Using settings for aula1 *"
+		MYGW="192.168.1.254"
+		MYMASK="24"
+		MYNAME="aula1-client$NUMAULA"
+		MYIP="192.168.1.$NUMAULA"
+	;;
+	aula2)
+		echo " * Using settings for aula2 *"
+		MYGW="10.2.2.254"
+		MYMASK="24"
+		MYNAME="aula2-client$NUMAULA"
+		MYIP="10.2.2.$NUMAULA"
+
+	;;
+	aula3)
+		echo " * Using settings for aula3 - Temporal *"
+		MYGW="192.168.4.254"
+		MYMASK="24"
+		MYNAME="aula3-client$NUMAULA"
+		MYIP="192.168.4.1$NUMAULA"
+	;;
+	aula4)
+		echo " * Using settings for aula4 *"
+		MYGW="192.168.4.254"
+		MYMASK="24"
+		MYNAME="aula4-client$NUMAULA"
+		MYIP="192.168.4.$NUMAULA"
+	;;
+	*)
+		echo " * UNKNOW AULA "
+		exit 1
+	;;
+
+esac
+
+# Por ahora se queda la Ip del servidor de Nagios por si acaso
+SERVERIP="172.29.0.254"
+
+echo "  * Name : $MYNAME"
+echo "  * IP : $MYIP"
+echo "  * Servidor : $SERVERIP"
+
+echo " WORKING DIR : $TMP_DIR"
+
+senia-firstboot $MYNAME $MYIP $MYMASK $MYGW $SERVERIP
+
+exit 0
+

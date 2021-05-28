@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+URLKIOSKO="https://portal.edu.gva.es/telematricula/es/inicio/"
+
+logger -t " Senia Kiosko " " Starting FirefoX  : $URLKIOSKO"
+firefox -private "${URLKIOSKO}" & 
+
+sleep 1
+xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11
+
+
